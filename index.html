@@ -4,165 +4,306 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Happy Birthday — Sammar 🎉</title>
+
 <style>
-    body {
-        margin: 0;
-        background: linear-gradient(135deg, #0f0f3d, #1a1a5e);
-        font-family: Arial, sans-serif;
-        color: white;
-        text-align: center;
-        overflow-x: hidden;
-    }
+/* ===================== GLOBAL STYLE ===================== */
+body {
+    margin: 0;
+    background: linear-gradient(135deg, #0f0f3d, #1a1a5e);
+    font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
 
-    h1 {
-        margin-top: 20px;
-        font-size: 28px;
-        animation: fadeIn 2s ease-in-out;
-    }
+h1 {
+    margin-top: 20px;
+    font-size: 32px;
+    animation: glow 2s infinite alternate;
+}
 
-    #container {
-        margin-top: 20px;
-    }
+@keyframes glow {
+    from { text-shadow: 0 0 10px #ff9aa2; }
+    to { text-shadow: 0 0 30px #fff; }
+}
 
-    .balloon {
-        width: 80px;
-        height: 100px;
-        background-color: pink;
-        border-radius: 50%;
-        display: inline-block;
-        margin: 20px;
-        animation: float 3s infinite ease-in-out;
-    }
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 18px;
+    transition: 0.3s;
+}
+button:hover { background-color: #45a049; }
 
-    .balloon:nth-child(2) { background-color: lightblue; animation-duration: 4s; }
-    .balloon:nth-child(3) { background-color: lightgreen; animation-duration: 5s; }
+/* ===================== BALLOONS ===================== */
+#balloonContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
 
-    @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-20px); }
-    }
+.balloon {
+    position: absolute;
+    width: 60px;
+    height: 80px;
+    border-radius: 50%;
+    animation: floatUp 6s linear infinite;
+}
 
-    #questionBox {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 20px;
-        margin: 30px auto;
-        border-radius: 10px;
-        width: 80%;
-        max-width: 600px;
-        display: none;
-        animation: fadeIn 1s ease-in-out;
-    }
+@keyframes floatUp {
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-150px); }
+}
 
-    select {
-        padding: 10px;
-        width: 80%;
-        border-radius: 5px;
-        margin-top: 10px;
-    }
+/* ===================== QUESTIONS ===================== */
+#questionBox {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    margin: 30px auto;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    display: none;
+    animation: fadeIn 1s ease-in-out;
+}
 
-    button {
-        padding: 10px 20px;
-        margin-top: 15px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        background-color: #4CAF50;
-        color: white;
-        font-size: 16px;
-        transition: 0.3s;
-    }
+select {
+    padding: 10px;
+    width: 80%;
+    border-radius: 5px;
+    margin-top: 10px;
+}
 
-    button:hover {
-        background-color: #45a049;
-    }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 
-    #cake {
-        display: none;
-        margin-top: 20px;
-        animation: popUp 1s ease-in-out;
-    }
+/* ===================== CAKE ===================== */
+.cake {
+  position: relative;
+  width: 200px;
+  height: 150px;
+  margin: 40px auto;
+  display: none;
+}
 
-    @keyframes popUp {
-        from { transform: scale(0); opacity: 0; }
-        to { transform: scale(1); opacity: 1; }
-    }
+.layer {
+  position: absolute;
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  left: 0;
+}
+.layer:nth-child(1) { top: 0; background: #ff9aa2; }
+.layer:nth-child(2) { top: 50px; background: #ffb7b2; }
+.layer:nth-child(3) { top: 100px; background: #ffdac1; }
 
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
+.candle {
+  position: absolute;
+  width: 15px;
+  height: 40px;
+  background: #fff;
+  top: -40px;
+  left: 92px;
+  border-radius: 5px;
+}
+
+.flame {
+  position: absolute;
+  width: 10px;
+  height: 20px;
+  background: gold;
+  top: -20px;
+  left: 95px;
+  border-radius: 50%;
+  animation: flicker 0.3s infinite alternate;
+}
+
+@keyframes flicker {
+  from {transform: scale(1); opacity: 0.8;}
+  to {transform: scale(1.2); opacity: 1;}
+}
+
+/* ===================== FIREWORKS CANVAS ===================== */
+#fireworksCanvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
 </style>
 </head>
 <body>
 
 <h1>🎂 Happy Birthday — Sammar! 🎉</h1>
-<p>Shuru karne ke liye Start dabao. Audio aur animations start honge.</p>
-
+<p>Shuru karne ke liye Start dabao. Audio & animations shuru ho jayengi.</p>
 <button onclick="startExperience()">Start 🎧</button>
 
-<div id="container">
-    <div class="balloon">S</div>
-    <div class="balloon">A</div>
-    <div class="balloon">M</div>
-</div>
+<!-- Floating balloons -->
+<div id="balloonContainer"></div>
 
+<!-- Questions -->
 <div id="questionBox">
     <h2 id="questionText"></h2>
     <select id="answerSelect"></select><br />
     <button onclick="nextQuestion()">Jawab Do</button>
 </div>
 
-<div id="cake">
-    <h1>🎉 Happy Birthday, Sammar! 🎂</h1>
-    <img src="https://i.imgur.com/Ou7QK1Y.png" alt="Birthday Cake" width="250" />
+<!-- Cake -->
+<div class="cake" id="cake">
+  <div class="layer"></div>
+  <div class="layer"></div>
+  <div class="layer"></div>
+  <div class="candle"></div>
+  <div class="flame"></div>
 </div>
 
-<audio id="bgAudio" src="https://www.pagalworld.com.sb/files/download/id/64617" preload="auto"></audio>
+<!-- FIREWORKS -->
+<canvas id="fireworksCanvas"></canvas>
 
 <script>
-    const questions = [
-        { q: "Kitne saal ke ho gaye ho?", a: ["18", "19", "20", "21", "25+"] },
-        { q: "Future mein kya banna chahte ho?", a: ["Engineer", "Doctor", "Businessman", "YouTuber", "Developer"] },
-        { q: "Tumhari favourite hobby kya hai?", a: ["Cricket", "Gaming", "Coding", "Traveling"] },
-        { q: "Favourite color?", a: ["Blue", "Black", "Red", "Green"] },
-        { q: "Best friend ka naam?", a: ["Ali", "Ahmed", "Hassan", "Abdul Rehman"] }
-    ];
-
-    let currentQuestion = 0;
-
-    function startExperience() {
-        document.getElementById("questionBox").style.display = "block";
-        bgAudio.play();
-        showQuestion();
-    }
-
-    function showQuestion() {
-        const q = questions[currentQuestion];
-        document.getElementById("questionText").innerText = q.q;
-
-        const answerSelect = document.getElementById("answerSelect");
-        answerSelect.innerHTML = "";
-        q.a.forEach(answer => {
-            const option = document.createElement("option");
-            option.value = answer;
-            option.text = answer;
-            answerSelect.appendChild(option);
+/* ===================== LOOPING HAPPY BIRTHDAY MELODY ===================== */
+let audioCtx;
+function playMusicLoop() {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playSong() {
+        const notes = [392,392,440,392,523,494,392,392,440,392,587,523,392,392,784,659,523,494,440,698,698,659,523,587,523];
+        const dur = 0.28;
+        let t = audioCtx.currentTime + 0.2;
+        notes.forEach((n,i)=>{
+            const o = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            o.type = 'sine';
+            o.frequency.value = n;
+            g.gain.value = 0.07;
+            o.connect(g); g.connect(audioCtx.destination);
+            o.start(t+i*dur); 
+            o.stop(t+i*dur+dur*0.95);
         });
-    }
 
-    function nextQuestion() {
-        currentQuestion++;
-        if (currentQuestion < questions.length) {
-            showQuestion();
-        } else {
-            document.getElementById("questionBox").style.display = "none";
-            showCake();
+        // Loop again after 8 seconds
+        setTimeout(playSong, 8000);
+    }
+    playSong();
+}
+
+/* ===================== QUESTIONS ===================== */
+const questions = [
+    { q: "Kitne saal ke ho gaye ho?", a: ["18", "19", "20", "21", "25+"] },
+    { q: "Future mein kya banna chahte ho?", a: ["Engineer", "Doctor", "Businessman", "YouTuber", "Developer"] },
+    { q: "Tumhari favourite hobby kya hai?", a: ["Cricket", "Gaming", "Coding", "Traveling"] },
+    { q: "Favourite color?", a: ["Blue", "Black", "Red", "Green"] },
+    { q: "Best friend ka naam?", a: ["Ali", "Ahmed", "Hassan", "Abdul Rehman"] }
+];
+
+let currentQuestion = 0;
+function startExperience() {
+    playMusicLoop();
+    generateBalloons();
+    document.getElementById("questionBox").style.display = "block";
+    showQuestion();
+}
+
+function showQuestion() {
+    const q = questions[currentQuestion];
+    document.getElementById("questionText").innerText = q.q;
+
+    const answerSelect = document.getElementById("answerSelect");
+    answerSelect.innerHTML = "";
+    q.a.forEach(answer => {
+        const option = document.createElement("option");
+        option.value = answer;
+        option.text = answer;
+        answerSelect.appendChild(option);
+    });
+}
+
+function nextQuestion() {
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        document.getElementById("questionBox").style.display = "none";
+        const cake = document.getElementById("cake");
+        cake.style.display = "block";
+        cake.style.animation = "fadeIn 1s ease-in-out";
+
+        startFireworks();
+    }
+}
+
+/* ===================== BALLOONS ===================== */
+function generateBalloons() {
+    const container = document.getElementById("balloonContainer");
+    const colors = ["#ff4d6d","#ffb3c1","#90e0ef","#48cae4","#ffb703","#fb8500","#bde0fe"];
+    
+    setInterval(() => {
+        const b = document.createElement("div");
+        b.classList.add("balloon");
+        b.style.background = colors[Math.floor(Math.random()*colors.length)];
+        b.style.left = Math.random()*90 + "vw";
+        b.style.animationDuration = (4 + Math.random()*4) + "s";
+        container.appendChild(b);
+
+        setTimeout(()=>b.remove(),6000);
+    }, 600);
+}
+
+/* ===================== FIREWORKS ===================== */
+function startFireworks() {
+    const canvas = document.getElementById('fireworksCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+
+    let particles = [];
+
+    function createFirework() {
+        let x = Math.random()*canvas.width;
+        let y = Math.random()*canvas.height/2;
+        let colors = ["red","yellow","white","purple","cyan","orange","pink"];
+        for (let i=0; i<40; i++) {
+            particles.push({
+                x, y,
+                angle: Math.random()*2*Math.PI,
+                speed: Math.random()*4+1,
+                radius: 2,
+                color: colors[Math.floor(Math.random()*colors.length)],
+                life: 80
+            });
         }
     }
 
-    function showCake() {
-        document.getElementById("cake").style.display = "block";
+    function animate() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        particles.forEach((p,i)=>{
+            p.x += Math.cos(p.angle)*p.speed;
+            p.y += Math.sin(p.angle)*p.speed;
+            p.life--;
+
+            ctx.beginPath();
+            ctx.arc(p.x,p.y,p.radius,0,2*Math.PI);
+            ctx.fillStyle = p.color;
+            ctx.fill();
+
+            if (p.life<=0) particles.splice(i,1);
+        });
+
+        requestAnimationFrame(animate);
     }
+
+    setInterval(createFirework, 800);
+    animate();
+}
 </script>
 
 </body>
