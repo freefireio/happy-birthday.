@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Happy Birthday Sammar 🎉</title>
+<style>
+  :root{--bg1:#0f172a;--bg2:#0b1226;--accent:#ff6b6b}
+  html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;color:#fff}
+  body{background:linear-gradient(135deg,var(--bg1),var(--bg2));overflow:hidden}
+  .overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:50}
+  .card{width:min(920px,94%);max-width:1200px;padding:28px;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));box-shadow:0 10px 40px rgba(2,6,23,0.6);backdrop-filter:blur(6px);}
+  header{display:flex;align-items:center;gap:16px}
+  .logo{width:72px;height:72px;border-radius:16px;background:linear-gradient(45deg,#ff9a9e,#fad0c4);display:flex;align-items:center;justify-content:center;font-weight:700;color:#102a43}
+  h1{margin:0;font-size:28px}
+  p.lead{opacity:0.85;margin-top:6px}
+  .scene{position:relative;height:520px;margin-top:18px;border-radius:12px;overflow:hidden;background:radial-gradient(circle at 10% 20%, rgba(255,255,255,0.03), transparent 10%), linear-gradient(180deg,#071023 0%, rgba(7,16,35,0.6) 40%)}
+  /* floating balloons */
+  .balloon{position:absolute;width:90px;height:120px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;display:flex;align-items:center;justify-content:center;font-weight:700}
+  .balloon::after{content:'';position:absolute;width:2px;height:32px;background:rgba(255,255,255,0.15);bottom:-26px}
+  .b1{left:6%;top:10%;background:linear-gradient(180deg,#ff9a9e,#ffccd5);animation:float1 6s ease-in-out infinite}
+  .b2{left:22%;top:28%;width:70px;height:100px;background:linear-gradient(180deg,#a0e9ff,#bfe9ff);animation:float2 5s ease-in-out infinite}
+  .b3{right:12%;top:8%;background:linear-gradient(180deg,#ffc4a3,#ffd8b5);animation:float3 7s ease-in-out infinite}
+  .b4{right:22%;top:38%;background:linear-gradient(180deg,#c7ffb3,#e6ffd9);animation:float1 6.5s ease-in-out infinite}
+  @keyframes float1{0%{transform:translateY(0)}50%{transform:translateY(-18px)}100%{transform:translateY(0)}}
+  @keyframes float2{0%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-28px) rotate(4deg)}100%{transform:translateY(0) rotate(-4deg)}}
+  @keyframes float3{0%{transform:translateY(0) rotate(6deg)}50%{transform:translateY(-24px) rotate(-6deg)}100%{transform:translateY(0) rotate(6deg)}}
+
+  /* questions */
+  .question-wrap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:86%;max-width:760px}
+  .question{background:rgba(255,255,255,0.03);padding:20px;border-radius:12px;text-align:center;backdrop-filter:blur(3px)}
+  .question h2{margin:0 0 10px 0;font-size:22px}
+  select{appearance:none;padding:12px 14px;border-radius:10px;border:0;background:rgba(255,255,255,0.04);min-width:240px;color:#fff}
+  .btn{display:inline-block;margin-top:14px;padding:10px 16px;border-radius:10px;border:0;background:linear-gradient(90deg,#6ee7b7,#60a5fa);cursor:pointer;font-weight:600}
+
+  /* popup animation */
+  .popup{position:fixed;left:50%;top:20%;transform:translateX(-50%) scale(0.8);background:linear-gradient(180deg,#0b1226,#091027);padding:16px 22px;border-radius:12px;box-shadow:0 10px 30px rgba(2,6,23,0.6);opacity:0;z-index:80;display:flex;gap:12px;align-items:center}
+  .popup.show{opacity:1;transform:translateX(-50%) scale(1);transition:all 420ms cubic-bezier(.2,.9,.2,1)}
+  .check{width:44px;height:44px;border-radius:10px;background:linear-gradient(180deg,#16a34a,#4ade80);display:flex;align-items:center;justify-content:center;font-weight:700;color:#042007}
+
+  /* cake */
+  .cake-wrap{position:absolute;left:50%;bottom:40px;transform:translateX(-50%) scale(0.9);text-align:center;opacity:0;transition:all 700ms ease;z-index:70}
+  .cake-wrap.show{opacity:1;transform:translateX(-50%) scale(1)}
+  .cake{width:320px;margin:0 auto;position:relative}
+  .layer{height:60px;border-radius:14px;background:linear-gradient(180deg,#fff7ed,#ffd6a5);border:6px solid #ffe0b3}
+  .layer.top{height:70px}
+  .icing{position:absolute;left:0;right:0;height:30px;background:linear-gradient(180deg,#ff9a9e,#ff6b6b);top:-18px;border-radius:12px}
+  .candles{position:absolute;left:50%;transform:translateX(-50%);top:-52px;display:flex;gap:8px}
+  .candle{width:10px;height:34px;background:#fff;border-radius:3px;position:relative}
+  .flame{position:absolute;top:-12px;left:50%;transform:translateX(-50%);width:12px;height:18px;border-radius:50%;background:linear-gradient(180deg,#fffbcc,#ff7a00);filter:drop-shadow(0 6px 6px rgba(255,125,0,0.18));animation:flicker 800ms infinite}
+  @keyframes flicker{0%{transform:translateX(-50%) scale(0.95)}50%{transform:translateX(-50%) scale(1.05)}100%{transform:translateX(-50%) scale(0.95)}}
+
+  /* final message */
+  .final-msg{font-size:34px;margin-top:18px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+
+  /* small helper */
+  .start-btn{position:absolute;right:20px;top:20px;padding:10px 14px;border-radius:10px;border:0;background:linear-gradient(90deg,#f472b6,#60a5fa);cursor:pointer;font-weight:700;z-index:60}
+
+  /* confetti canvas full */
+  canvas#confetti{position:fixed;inset:0;pointer-events:none;z-index:100}
+
+  /* responsive */
+  @media (max-width:640px){.cake{width:240px}.final-msg{font-size:22px}}
+</style>
+</head>
+<body>
+<div class="card" style="margin:28px auto">
+  <header>
+    <div class="logo">SB</div>
+    <div>
+      <h1>Happy Birthday — Sammar!</h1>
+      <p class="lead">Aik choti si interactive surprise. Shuru karne ke liye "Start" dabao. (Audio aur animations start honge)</p>
+    </div>
+    <button class="start-btn" id="startBtn">Start</button>
+  </header>
+  <div class="scene">
+    <div class="balloon b1">S</div>
+    <div class="balloon b2">A</div>
+    <div class="balloon b3">M</div>
+    <div class="balloon b4">M</div>
+
+    <div class="question-wrap">
+      <!-- questions container -->
+      <div id="qbox" class="question">
+        <h2 id="qtitle">Kaisa lag raha hai Sammar?</h2>
+        <div id="qbody">
+          <select id="qselect">
+            <option value="">-- select karo --</option>
+            <option value="Awesome">Awesome</option>
+            <option value="Excited">Excited</option>
+            <option value="Chill">Chill</option>
+            <option value="Surprised">Surprised</option>
+          </select>
+        </div>
+        <div>
+          <button class="btn" id="nextBtn">Jawab Do</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="popup" id="popup"><div class="check">✓</div><div id="poptext">Shukriya!</div></div>
+
+    <div class="cake-wrap" id="cakeWrap" aria-hidden="true">
+      <div class="cake">
+        <div class="layer top"></div>
+        <div class="icing"></div>
+        <div class="layer" style="margin-top:8px"></div>
+        <div class="layer" style="margin-top:8px"></div>
+        <div class="candles" id="candles">
+          <div class="candle"><div class="flame"></div></div>
+          <div class="candle"><div class="flame"></div></div>
+          <div class="candle"><div class="flame"></div></div>
+        </div>
+      </div>
+      <div class="final-msg" id="finalMsg">Happy Birthday Sammar!</div>
+    </div>
+
+  </div>
+</div>
+<canvas id="confetti"></canvas>
+
+<script>
+// Questions array (ready-made as user asked). We'll ask 5 questions one-by-one.
+const questions = [
+  {q: "Kitne saal ka ho gya ho?", opts: ["14","15","16","17","18+","Prefer na batana"]},
+  {q: "Tum future mein kya banna chahte ho?", opts: ["Doctor","Engineer","YouTuber","Artist","Entrepreneur","Kuch aur"]},
+  {q: "Favourite color?", opts: ["Blue","Red","Green","Black","White","Other"]},
+  {q: "Favourite cake flavour?", opts: ["Chocolate","Vanilla","Strawberry","Red Velvet","Butterscotch","Kuch aur"]},
+  {q: "Hobby kya hai?", opts: ["Gaming","Drawing","Reading","Sports","Music","Coding"]}
+];
+
+let idx = 0;
+const qtitle = document.getElementById('qtitle');
+const qselect = document.getElementById('qselect');
+const qbody = document.getElementById('qbody');
+const nextBtn = document.getElementById('nextBtn');
+const popup = document.getElementById('popup');
+const poptext = document.getElementById('poptext');
+const cakeWrap = document.getElementById('cakeWrap');
+const finalMsg = document.getElementById('finalMsg');
+const startBtn = document.getElementById('startBtn');
+const confettiCanvas = document.getElementById('confetti');
+
+function loadQuestion(i){
+  const item = questions[i];
+  qtitle.textContent = item.q;
+  // rebuild select
+  let html = '<select id="qselect"><option value="">-- select karo --</option>';
+  item.opts.forEach(o=> html += `<option value="${o}">${o}</option>`);
+  html += '</select>';
+  qbody.innerHTML = html;
+}
+
+function showPopup(msg){
+  poptext.textContent = msg;
+  popup.classList.add('show');
+  setTimeout(()=> popup.classList.remove('show'),1200);
+}
+
+function playHappyBirthday(){
+  // Use WebAudio API to play simple Happy Birthday melody
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const notes = [392,392,440,392,523,494,392,392,440,392,587,523,392,392,784,659,523,494,440,698,698,659,523,587,523];
+  const dur = 0.28; // seconds
+  let t = ctx.currentTime+0.2;
+  notes.forEach((n,i)=>{
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'sine';
+    o.frequency.value = n;
+    g.gain.value = 0.07;
+    o.connect(g); g.connect(ctx.destination);
+    o.start(t + i*dur);
+    o.stop(t + i*dur + dur*0.95);
+  });
+}
+
+// simple confetti
+function launchConfetti(){
+  const ctx = confettiCanvas.getContext('2d');
+  const w = confettiCanvas.width = innerWidth;
+  const h = confettiCanvas.height = innerHeight;
+  const pieces = [];
+  for(let i=0;i<120;i++){
+    pieces.push({x:Math.random()*w, y:Math.random()*-h, r:Math.random()*8+4, c: ['#ff6b6b','#ffd166','#6ee7b7','#60a5fa','#c7a4ff'][Math.floor(Math.random()*5)], vx:(Math.random()-0.5)*2, vy: Math.random()*3+2, rot: Math.random()*360});
+  }
+  let t=0;
+  function frame(){
+    ctx.clearRect(0,0,w,h);
+    pieces.forEach(p=>{
+      p.x += p.vx; p.y += p.vy; p.rot += 6;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
+      ctx.fillStyle = p.c; ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*0.6);
+      ctx.restore();
+    });
+    t++; if(t<360) requestAnimationFrame(frame); else ctx.clearRect(0,0,w,h);
+  }
+  requestAnimationFrame(frame);
+}
+
+// handle next
+nextBtn.addEventListener('click',()=>{
+  const sel = document.getElementById('qselect');
+  if(!sel || !sel.value){ showPopup('Pehlay koi option select karo'); return }
+  // show nice popup with selected value
+  showPopup('Nice — ' + sel.value);
+  // small celebration per answer
+  setTimeout(()=>{
+    idx++;
+    if(idx < questions.length){ loadQuestion(idx); }
+    else { // finished
+      // hide question box
+      document.getElementById('qbox').style.opacity = 0; document.getElementById('qbox').style.transform = 'scale(0.96)';
+      setTimeout(()=>{
+        cakeWrap.classList.add('show');
+        finalMsg.textContent = 'Happy Birthday, Sammar!';
+        // play melody + confetti
+        try{ playHappyBirthday(); }catch(e){}
+        launchConfetti();
+      },420);
+    }
+  },700);
+});
+
+startBtn.addEventListener('click',()=>{
+  // user gesture to unlock audio
+  startBtn.disabled = true; startBtn.textContent = 'Started';
+  // small intro popup
+  showPopup('Let\'s go!');
+  // load first question
+  loadQuestion(0);
+});
+
+// load first by default but keep waiting for start
+// accessibility: fill initial
+qtitle.textContent = 'Ready? Start press karo.';
+
+// make start also trigger if user clicks anywhere inside card
+document.querySelector('.card').addEventListener('click', (e)=>{
+  if(startBtn.disabled) return; startBtn.click();
+});
+</script>
+</body>
+</html>
